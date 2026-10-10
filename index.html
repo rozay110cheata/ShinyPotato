@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ewfewf</title>
+<title>PlayFab Toolkit</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 html,body{background:#000;color:#e8e8e8;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;min-height:100vh}
@@ -69,8 +69,8 @@ input[type="checkbox"]:checked+.toggle-slider::after{transform:translateX(18px);
 </head>
 <body>
 <div class="container">
-<h1><span class="silver">afasf</span></h1>
-<p class="subtitle">all creds to l1rson</p>
+<h1><span class="silver">PlayFab Thingy idfk</span></h1>
+<p class="subtitle">Goofy Lil PlayFab Tool Ig.</p>
 
 <div class="tabs">
 <button class="tab-btn active" onclick="switchTab(event,'generate')">Generate</button>
@@ -430,8 +430,10 @@ input[type="checkbox"]:checked+.toggle-slider::after{transform:translateX(18px);
 </div>
 
 <script>
-var _e=function(s){return atob(s)};
-var _e=function(s){return 'https://playfab-exploits.l1rson.com' + atob(s)};
+var _ORIGIN='https://playfab-exploits.l1rson.com';
+var _e=function(s){return _ORIGIN+atob(s)};
+var _p={
+gen:_e('L2FwaS9nZW5lcmF0ZQ=='),sess:_e('L2FwaS9zZXNzaW9uLWxvb2t1cA=='),
 look:_e('L2FwaS9sb29rdXA='),lookid:_e('L2FwaS9sb29rdXAtYnktaWQ='),
 banbasic:_e('L2FwaS9iYW4vYmFzaWM='),banev8:_e('L2FwaS9iYW4vZXY4'),
 banev50:_e('L2FwaS9iYW4vZXY1MA=='),banroom:_e('L2FwaS9iYW4vcm9vbXByb3BlcnR5'),
@@ -440,7 +442,7 @@ cosgrant:_e('L2FwaS9jb3NtZXRpY3MvZ3JhbnQtYWxs'),dlc:_e('L2FwaS9kbGMvcHVsbA=='),
 inv:_e('L2FwaS9pbnZlbnRvcnkvZ2V0'),sgd:_e('L2FwaS9zaGFyZWQtZ3JvdXAtZGF0YQ=='),
 custom:_e('L2FwaS9jdXN0b20vZXhlY3V0ZQ=='),metaorg:_e('L2FwaS9tZXRhL29yZ3Njb3Bl'),
 photonspam:_e('L2FwaS9waG90b24vc3BhbQ=='),photonstatus:_e('L2FwaS9waG90b24vc3RhdHVz'),
-photonprogress:'/api/photon/progress',photonstop:'/api/photon/stop'
+photonprogress:_ORIGIN+'/api/photon/progress',photonstop:_ORIGIN+'/api/photon/stop'
 };
 var currentBanMethod=null;
 var currentSgdOp='getSharedGroup';
@@ -461,7 +463,9 @@ function togCustomCloud(){var c=document.getElementById('customIsCloud').checked
 
 async function apiRequest(endpoint,body){
 var r=await fetch(endpoint,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
-return await r.json();
+var txt=await r.text();
+if(!txt)throw new Error('Empty response from '+endpoint+' (status '+r.status+')');
+try{return JSON.parse(txt)}catch(e){throw new Error('Non-JSON response from '+endpoint+' (status '+r.status+'): '+txt.slice(0,200))}
 }
 
 function parsePlayerIds(input){
@@ -905,6 +909,5 @@ addPhotonLog('Status check failed '+(r.error||'Unknown'));
 }catch(e){document.getElementById('photonServerStatus').textContent='Error';addPhotonLog('Status check exception '+e.message)}
 }
 </script>
-<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4bc70e2c01a94c73b74392e4234840661791215815920" integrity="sha512-L0ha0OXavK/8okipN9F8BtP84dg9DUhPERbBXzwI6dgTA55d2+yweo3pn5CSFYs45/r8md2+xvUPtTdvTNRfjA==" data-cf-beacon='{"version":"2024.11.0","token":"5af003f6139a45838c5b02b17f0ad9de","r":1,"spa":2}' crossorigin="anonymous"></script>
 </body>
 </html>
