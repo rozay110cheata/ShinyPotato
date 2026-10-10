@@ -3,911 +3,138 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PlayFab Toolkit</title>
+<title>rozay110</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-html,body{background:#000;color:#e8e8e8;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;min-height:100vh}
-body{padding:32px 20px}
-.container{max-width:920px;margin:0 auto}
-@keyframes silver{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
-.silver{background:linear-gradient(90deg,#ffffff,#a8a8a8,#ffffff,#7a7a7a,#ffffff);background-size:300% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:silver 6s ease-in-out infinite}
-h1{font-size:30px;font-weight:700;letter-spacing:-0.5px;margin-bottom:6px}
-.subtitle{color:#888;font-size:13px;margin-bottom:28px}
-.tabs{display:flex;gap:6px;margin-bottom:24px;flex-wrap:wrap;border-bottom:1px solid #1a1a1a;padding-bottom:12px}
-.tab-btn{padding:9px 16px;font-size:13px;font-weight:500;background:transparent;color:#777;border:1px solid #1a1a1a;border-radius:6px;cursor:pointer;transition:all .2s;font-family:inherit}
-.tab-btn:hover{background:#0a0a0a;color:#ddd;border-color:#2a2a2a}
-.tab-btn.active{background:#fff;color:#000;border-color:#fff}
-.tab-content{display:none}
-.tab-content.active{display:block}
-.card{background:#0a0a0a;border:1px solid #1a1a1a;border-radius:10px;padding:22px;margin-bottom:18px}
-.card-title{font-size:15px;font-weight:600;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid #161616}
-.form-group{margin-bottom:14px}
-label{display:block;font-size:12px;font-weight:500;color:#888;margin-bottom:6px;text-transform:uppercase;letter-spacing:0.4px}
-input[type="text"],input[type="password"],textarea,select{width:100%;padding:9px 12px;font-size:13px;background:#000;border:1px solid #1f1f1f;border-radius:6px;color:#fff;outline:none;transition:border-color .15s;font-family:inherit}
-textarea{resize:vertical;min-height:90px;font-family:Consolas,"Courier New",monospace}
-input:focus,textarea:focus,select:focus{border-color:#555}
-input::placeholder,textarea::placeholder{color:#3a3a3a}
-.btn{display:inline-block;padding:9px 20px;font-size:13px;font-weight:500;background:#fff;color:#000;border:1px solid #fff;border-radius:6px;cursor:pointer;transition:all .15s;font-family:inherit}
-.btn:hover{background:#d4d4d4;border-color:#d4d4d4}
-.btn:disabled{background:#161616;color:#444;cursor:not-allowed;border-color:#1a1a1a}
-.btn-secondary{background:transparent;color:#ccc;border-color:#2a2a2a}
-.btn-secondary:hover{background:#101010;border-color:#3a3a3a;color:#fff}
-.btn-secondary.active{background:#fff;color:#000;border-color:#fff}
-.btn-danger{background:#1a1a1a;color:#f5f5f5;border-color:#2a2a2a}
-.btn-danger:hover{background:#222;border-color:#3a3a3a}
-.clear-btn{margin-top:10px;margin-bottom:18px}
-.response-section{display:none}
-.response-section.visible{display:block}
-.field-group{margin-bottom:14px}
-.field-label{font-size:11px;font-weight:600;color:#666;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px}
-.field-value{background:#000;border:1px solid #1a1a1a;border-radius:6px;padding:10px 12px;font-family:Consolas,monospace;font-size:12px;color:#ddd;word-break:break-all}
-.raw-json{background:#000;border:1px solid #1a1a1a;border-radius:6px;padding:12px;font-family:Consolas,monospace;font-size:12px;color:#aaa;white-space:pre-wrap;max-height:420px;overflow:auto;line-height:1.45}
-.status-success{color:#fff;font-weight:600}
-.status-error{color:#cfcfcf;font-weight:600}
-.loading{display:none;color:#666;font-size:13px;margin-top:10px}
-.loading.visible{display:block}
-.info-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px;margin-bottom:12px}
-.info-item{background:#000;border:1px solid #1a1a1a;border-radius:6px;padding:10px 12px}
-.info-item-label{font-size:10px;font-weight:600;color:#5a5a5a;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:4px}
-.info-item-value{font-size:13px;color:#eee;word-break:break-all}
-.btn-group{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
-.form-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
-.section-divider{height:1px;background:#161616;margin:20px 0}
-.toggle-switch{display:inline-flex;align-items:center;gap:10px;margin-bottom:12px}
-.toggle-switch input[type="checkbox"]{display:none}
-.toggle-slider{width:38px;height:20px;background:#1a1a1a;border-radius:10px;position:relative;cursor:pointer;transition:background-color .2s;border:1px solid #222}
-.toggle-slider::after{content:"";position:absolute;width:14px;height:14px;background:#888;border-radius:50%;top:2px;left:2px;transition:transform .2s,background .2s}
-input[type="checkbox"]:checked+.toggle-slider{background:#fff}
-input[type="checkbox"]:checked+.toggle-slider::after{transform:translateX(18px);background:#000}
-.toggle-label{font-size:13px;color:#aaa}
-.sub-fields{display:none;margin-top:12px;padding:14px;background:#050505;border-radius:8px;border:1px solid #141414}
-.sub-fields.visible{display:block}
-.footer{margin-top:32px;padding-top:18px;border-top:1px solid #1a1a1a;text-align:center;font-size:11px;color:#444}
-.log-box{margin-top:14px;max-height:200px;overflow-y:auto;background:#000;border:1px solid #1a1a1a;border-radius:6px;padding:10px;font-family:Consolas,monospace;font-size:11px}
-.log-entry{color:#666;margin-bottom:2px}
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    background: #0a0a0a;
+    color: #eaeaea;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background-image: radial-gradient(circle at 50% 0%, #1a1a1a 0%, #0a0a0a 70%);
+  }
+
+  .card {
+    background: #111;
+    border: 1px solid #222;
+    border-radius: 16px;
+    padding: 40px 32px;
+    max-width: 420px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.8), 0 0 80px rgba(255, 255, 255, 0.02);
+  }
+
+  .pfp {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #333;
+    margin-bottom: 20px;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+  }
+
+  .pfp:hover {
+    transform: scale(1.05);
+    border-color: #666;
+  }
+
+  h1 {
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+    color: #fff;
+  }
+
+  .tag {
+    font-size: 13px;
+    color: #777;
+    margin-bottom: 22px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  .about {
+    font-size: 15px;
+    line-height: 1.7;
+    color: #bbb;
+    margin-bottom: 28px;
+  }
+
+  .about strong {
+    color: #fff;
+  }
+
+  .links {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .links a {
+    text-decoration: none;
+    color: #eaeaea;
+    border: 1px solid #2a2a2a;
+    padding: 9px 18px;
+    border-radius: 8px;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+    transition: all 0.25s ease;
+    background: #161616;
+  }
+
+  .links a:hover {
+    background: #fff;
+    color: #000;
+    border-color: #fff;
+  }
+
+  .footer {
+    margin-top: 26px;
+    font-size: 11px;
+    color: #444;
+    letter-spacing: 1px;
+  }
 </style>
 </head>
 <body>
-<div class="container">
-<h1><span class="silver">PlayFab Thingy idfk</span></h1>
-<p class="subtitle">Goofy Lil PlayFab Tool Ig.</p>
 
-<div class="tabs">
-<button class="tab-btn active" onclick="switchTab(event,'generate')">Generate</button>
-<button class="tab-btn" onclick="switchTab(event,'lookup')">Lookup</button>
-<button class="tab-btn" onclick="switchTab(event,'sgd')">Shared Group</button>
-<button class="tab-btn" onclick="switchTab(event,'ban')">Ban</button>
-<button class="tab-btn" onclick="switchTab(event,'cosmetics')">Cosmetics</button>
-<button class="tab-btn" onclick="switchTab(event,'custom')">Custom</button>
-<button class="tab-btn" onclick="switchTab(event,'meta')">Meta</button>
-<button class="tab-btn" onclick="switchTab(event,'photon')">Photon</button>
-</div>
+  <div class="card">
+    <img
+      src="https://raw.githubusercontent.com/rozay110cheata/James/main/IMG_0921.png"
+      alt="rozay110 pfp"
+      class="pfp"
+    >
 
-<div id="tab-generate" class="tab-content active">
-<div class="card">
-<div class="card-title"><span class="silver">Generate Account</span></div>
-<div class="form-group"><label>Title ID</label><input type="text" id="genTitleId" placeholder="Enter PlayFab Title ID"></div>
-<div class="toggle-switch"><input type="checkbox" id="genManualMode" onchange="tog('genManualMode','genManualFields')"><label for="genManualMode" class="toggle-slider"></label><span class="toggle-label">Use existing custom ID</span></div>
-<div id="genManualFields" class="sub-fields"><div class="form-group"><label>Custom ID</label><input type="text" id="genCustomId" placeholder="Your existing custom ID"></div></div>
-<div class="toggle-switch"><input type="checkbox" id="genUseBackend" onchange="tog('genUseBackend','genBackendFields')"><label for="genUseBackend" class="toggle-slider"></label><span class="toggle-label">Use backend authentication</span></div>
-<div id="genBackendFields" class="sub-fields">
-<div class="form-group"><label>Backend URL</label><input type="text" id="genBackendUrl" placeholder="Backend authentication URL"></div>
-<div class="toggle-switch"><input type="checkbox" id="genAutoGen" checked onchange="togInv('genAutoGen','genManualBackendFields')"><label for="genAutoGen" class="toggle-slider"></label><span class="toggle-label">Auto generate credentials</span></div>
-<div id="genManualBackendFields" class="sub-fields">
-<div class="form-row"><div class="form-group"><label>Nonce</label><input type="text" id="genNonce" placeholder="32 digit nonce"></div><div class="form-group"><label>Oculus ID</label><input type="text" id="genOculusId" placeholder="16 digit oculus id"></div></div>
-<div class="form-row"><div class="form-group"><label>Custom ID</label><input type="text" id="genBackendCustomId" placeholder="optional"></div><div class="form-group"><label>App Version</label><input type="text" id="genAppVersion" placeholder="optional"></div></div>
-<div class="form-group"><label>Unity Version</label><input type="text" id="genUnityVersion" value="2022.3.2f1"></div>
-</div></div>
-<button class="btn" id="genSubmitBtn" onclick="generateAccount()">Generate</button>
-<p class="loading" id="genLoading">Working on it...</p>
-</div>
-<button class="btn btn-secondary clear-btn" id="genClearBtn" onclick="clearResponse('gen')" style="display:none;">Clear</button>
-<div class="card response-section" id="genResponseSection">
-<div class="card-title"><span class="silver">Result</span></div>
-<div class="field-group"><div class="field-label">Status</div><div class="field-value" id="genStatus"></div></div>
-<div class="info-grid" id="genInfoGrid" style="display:none;"></div>
-<div class="field-group" id="genRawGroup" style="display:none;"><div class="field-label">Raw Response</div><pre class="raw-json" id="genRawJson"></pre></div>
-</div>
+    <h1>rozay110</h1>
+    <p class="tag">gun.lol</p>
 
-<div class="section-divider"></div>
+    <p class="about">
+      here for good vibes, good people, and good times.<br>
+      i like to have fun, make friends, and keep things real.<br>
+      no drama, no fake energy — just <strong>good company</strong>.
+    </p>
 
-<div class="card">
-<div class="card-title"><span class="silver">Session Ticket Lookup</span></div>
-<div class="form-row"><div class="form-group"><label>Title ID</label><input type="text" id="sessTitleId"></div><div class="form-group"><label>Session Ticket</label><input type="text" id="sessTicket"></div></div>
-<button class="btn" onclick="sessionLookup()">Lookup</button>
-<p class="loading" id="sessLoading">Looking up...</p>
-</div>
-<button class="btn btn-secondary clear-btn" id="sessClearBtn" onclick="clearResponse('sess')" style="display:none;">Clear</button>
-<div class="card response-section" id="sessResponseSection">
-<div class="card-title"><span class="silver">Result</span></div>
-<div class="field-group"><div class="field-label">Status</div><div class="field-value" id="sessStatus"></div></div>
-<div class="info-grid" id="sessInfoGrid" style="display:none;"></div>
-<div class="field-group" id="sessRawGroup" style="display:none;"><div class="field-label">Raw Response</div><pre class="raw-json" id="sessRawJson"></pre></div>
-</div>
-</div>
+    <div class="links">
+      <a href="#">discord</a>
+      <a href="#">instagram</a>
+      <a href="#">contact</a>
+    </div>
 
-<div id="tab-lookup" class="tab-content">
-<div class="card">
-<div class="card-title"><span class="silver">Lookup by Display Name</span></div>
-<div class="form-row"><div class="form-group"><label>Title ID</label><input type="text" id="lookupTitleId"></div><div class="form-group"><label>Display Name</label><input type="text" id="lookupName"></div></div>
-<div class="toggle-switch"><input type="checkbox" id="lookupUseSessionTicket" onchange="tog('lookupUseSessionTicket','lookupSessionTicketFields')"><label for="lookupUseSessionTicket" class="toggle-slider"></label><span class="toggle-label">Use session ticket</span></div>
-<div id="lookupSessionTicketFields" class="sub-fields"><div class="form-group"><label>Session Ticket</label><input type="text" id="lookupSessionTicket"></div></div>
-<div class="toggle-switch"><input type="checkbox" id="lookupUseBackend" onchange="tog('lookupUseBackend','lookupBackendFields')"><label for="lookupUseBackend" class="toggle-slider"></label><span class="toggle-label">Use backend authentication</span></div>
-<div id="lookupBackendFields" class="sub-fields">
-<div class="form-group"><label>Backend URL</label><input type="text" id="lookupBackendUrl"></div>
-<div class="toggle-switch"><input type="checkbox" id="lookupAutoGen" checked onchange="togInv('lookupAutoGen','lookupManualBackendFields')"><label for="lookupAutoGen" class="toggle-slider"></label><span class="toggle-label">Auto generate credentials</span></div>
-<div id="lookupManualBackendFields" class="sub-fields">
-<div class="form-row"><div class="form-group"><label>Nonce</label><input type="text" id="lookupNonce"></div><div class="form-group"><label>Oculus ID</label><input type="text" id="lookupOculusId"></div></div>
-<div class="form-row"><div class="form-group"><label>Custom ID</label><input type="text" id="lookupBackendCustomId"></div><div class="form-group"><label>App Version</label><input type="text" id="lookupAppVersion"></div></div>
-<div class="form-group"><label>Unity Version</label><input type="text" id="lookupUnityVersion" value="2022.3.2f1"></div>
-</div></div>
-<button class="btn" onclick="lookupByName()">Lookup</button>
-<p class="loading" id="lookupLoading">Searching...</p>
-</div>
-<button class="btn btn-secondary clear-btn" id="lookupClearBtn" onclick="clearResponse('lookup')" style="display:none;">Clear</button>
-<div class="card response-section" id="lookupResponseSection">
-<div class="card-title"><span class="silver">Result</span></div>
-<div class="field-group"><div class="field-label">Status</div><div class="field-value" id="lookupStatus"></div></div>
-<div class="info-grid" id="lookupInfoGrid" style="display:none;"></div>
-<div class="field-group" id="lookupRawGroup" style="display:none;"><div class="field-label">Raw Response</div><pre class="raw-json" id="lookupRawJson"></pre></div>
-</div>
+    <p class="footer">© rozay110</p>
+  </div>
 
-<div class="section-divider"></div>
-
-<div class="card">
-<div class="card-title"><span class="silver">Lookup by PlayFab ID</span></div>
-<div class="form-row"><div class="form-group"><label>Title ID</label><input type="text" id="lookupIdTitleId"></div><div class="form-group"><label>PlayFab ID</label><input type="text" id="lookupPlayerId"></div></div>
-<div class="toggle-switch"><input type="checkbox" id="lookupIdUseSessionTicket" onchange="tog('lookupIdUseSessionTicket','lookupIdSessionTicketFields')"><label for="lookupIdUseSessionTicket" class="toggle-slider"></label><span class="toggle-label">Use session ticket</span></div>
-<div id="lookupIdSessionTicketFields" class="sub-fields"><div class="form-group"><label>Session Ticket</label><input type="text" id="lookupIdSessionTicket"></div></div>
-<div class="toggle-switch"><input type="checkbox" id="lookupIdUseBackend" onchange="tog('lookupIdUseBackend','lookupIdBackendFields')"><label for="lookupIdUseBackend" class="toggle-slider"></label><span class="toggle-label">Use backend authentication</span></div>
-<div id="lookupIdBackendFields" class="sub-fields">
-<div class="form-group"><label>Backend URL</label><input type="text" id="lookupIdBackendUrl"></div>
-<div class="toggle-switch"><input type="checkbox" id="lookupIdAutoGen" checked onchange="togInv('lookupIdAutoGen','lookupIdManualBackendFields')"><label for="lookupIdAutoGen" class="toggle-slider"></label><span class="toggle-label">Auto generate credentials</span></div>
-<div id="lookupIdManualBackendFields" class="sub-fields">
-<div class="form-row"><div class="form-group"><label>Nonce</label><input type="text" id="lookupIdNonce"></div><div class="form-group"><label>Oculus ID</label><input type="text" id="lookupIdOculusId"></div></div>
-<div class="form-row"><div class="form-group"><label>Custom ID</label><input type="text" id="lookupIdBackendCustomId"></div><div class="form-group"><label>App Version</label><input type="text" id="lookupIdAppVersion"></div></div>
-<div class="form-group"><label>Unity Version</label><input type="text" id="lookupIdUnityVersion" value="2022.3.2f1"></div>
-</div></div>
-<button class="btn" onclick="lookupById()">Lookup</button>
-<p class="loading" id="lookupIdLoading">Searching...</p>
-</div>
-<button class="btn btn-secondary clear-btn" id="lookupIdClearBtn" onclick="clearResponse('lookupId')" style="display:none;">Clear</button>
-<div class="card response-section" id="lookupIdResponseSection">
-<div class="card-title"><span class="silver">Result</span></div>
-<div class="field-group"><div class="field-label">Status</div><div class="field-value" id="lookupIdStatus"></div></div>
-<div class="info-grid" id="lookupIdInfoGrid" style="display:none;"></div>
-<div class="field-group" id="lookupIdRawGroup" style="display:none;"><div class="field-label">Raw Response</div><pre class="raw-json" id="lookupIdRawJson"></pre></div>
-</div>
-</div>
-
-<div id="tab-sgd" class="tab-content">
-<div class="card">
-<div class="card-title"><span class="silver">Shared Group Data</span></div>
-<div class="form-group"><label>Title ID</label><input type="text" id="sgdTitleId"></div>
-<div class="toggle-switch"><input type="checkbox" id="sgdUseHardcoded" onchange="tog('sgdUseHardcoded','sgdHardcodedFields')"><label for="sgdUseHardcoded" class="toggle-slider"></label><span class="toggle-label">Use hardcoded session ticket</span></div>
-<div id="sgdHardcodedFields" class="sub-fields"><div class="form-row"><div class="form-group"><label>Custom ID</label><input type="text" id="sgdCustomId"></div><div class="form-group"><label>Session Ticket</label><input type="text" id="sgdTicket"></div></div></div>
-<div class="toggle-switch"><input type="checkbox" id="sgdUseBackend" onchange="tog('sgdUseBackend','sgdBackendFields')"><label for="sgdUseBackend" class="toggle-slider"></label><span class="toggle-label">Use backend authentication</span></div>
-<div id="sgdBackendFields" class="sub-fields">
-<div class="form-group"><label>Backend URL</label><input type="text" id="sgdBackendUrl"></div>
-<div class="toggle-switch"><input type="checkbox" id="sgdAutoGen" checked onchange="togInv('sgdAutoGen','sgdManualBackendFields')"><label for="sgdAutoGen" class="toggle-slider"></label><span class="toggle-label">Auto generate credentials</span></div>
-<div id="sgdManualBackendFields" class="sub-fields">
-<div class="form-row"><div class="form-group"><label>Nonce</label><input type="text" id="sgdNonce"></div><div class="form-group"><label>Oculus ID</label><input type="text" id="sgdOculusId"></div></div>
-<div class="form-row"><div class="form-group"><label>Custom ID</label><input type="text" id="sgdBackendCustomId"></div><div class="form-group"><label>App Version</label><input type="text" id="sgdAppVersion"></div></div>
-<div class="form-group"><label>Unity Version</label><input type="text" id="sgdUnityVersion" value="2022.3.2f1"></div>
-</div></div>
-<div class="form-group"><label>Operation</label>
-<div class="btn-group">
-<button class="btn btn-secondary active" id="sgdOpGetSharedGroup" onclick="selectSgdOp('getSharedGroup')">Get Shared Group</button>
-<button class="btn btn-secondary" id="sgdOpBanPlayersEv8" onclick="selectSgdOp('banPlayersEv8')">Ban (EvCode 8)</button>
-<button class="btn btn-secondary" id="sgdOpReportPlayersEv50" onclick="selectSgdOp('reportPlayersEv50')">Report (EvCode 50)</button>
-<button class="btn btn-secondary" id="sgdOpExecuteCloudScript" onclick="selectSgdOp('executeCloudScript')">Execute CloudScript</button>
-<button class="btn btn-secondary" id="sgdOpAddMembers" onclick="selectSgdOp('addMembers')">Add Members</button>
-<button class="btn btn-secondary" id="sgdOpUpdateData" onclick="selectSgdOp('updateData')">Update Data</button>
-</div></div>
-<div class="form-group"><label>Payload</label><textarea id="sgdPayload" rows="9"></textarea></div>
-<button class="btn" id="sgdSubmitBtn" onclick="executeSgd()">Run</button>
-<p class="loading" id="sgdLoading">Running...</p>
-</div>
-<button class="btn btn-secondary clear-btn" id="sgdClearBtn" onclick="clearResponse('sgd')" style="display:none;">Clear</button>
-<div class="card response-section" id="sgdResponseSection">
-<div class="card-title"><span class="silver">Result</span></div>
-<div class="field-group"><div class="field-label">Status</div><div class="field-value" id="sgdStatus"></div></div>
-<div class="info-grid" id="sgdInfoGrid" style="display:none;"></div>
-<div class="field-group" id="sgdRawGroup" style="display:none;"><div class="field-label">Raw Response</div><pre class="raw-json" id="sgdRawJson"></pre></div>
-</div>
-</div>
-
-<div id="tab-ban" class="tab-content">
-<div class="card">
-<div class="card-title"><span class="silver">Ban Player</span></div>
-<div class="form-group"><label>Title ID</label><input type="text" id="banTitleId"></div>
-<div class="form-group"><label>Player IDs</label><textarea id="banPlayerIds" rows="4" placeholder="One per line, comma separated, or JSON array"></textarea></div>
-<div class="toggle-switch"><input type="checkbox" id="banUseSessionTicket" onchange="tog('banUseSessionTicket','banSessionTicketFields')"><label for="banUseSessionTicket" class="toggle-slider"></label><span class="toggle-label">Use session ticket</span></div>
-<div id="banSessionTicketFields" class="sub-fields"><div class="form-group"><label>Session Ticket</label><input type="text" id="banSessionTicket"></div></div>
-<div class="toggle-switch"><input type="checkbox" id="banUseBackend" onchange="tog('banUseBackend','banBackendFields')"><label for="banUseBackend" class="toggle-slider"></label><span class="toggle-label">Use backend authentication</span></div>
-<div id="banBackendFields" class="sub-fields">
-<div class="form-group"><label>Backend URL</label><input type="text" id="banBackendUrl"></div>
-<div class="toggle-switch"><input type="checkbox" id="banAutoGen" checked onchange="togInv('banAutoGen','banManualBackendFields')"><label for="banAutoGen" class="toggle-slider"></label><span class="toggle-label">Auto generate credentials</span></div>
-<div id="banManualBackendFields" class="sub-fields">
-<div class="form-row"><div class="form-group"><label>Nonce</label><input type="text" id="banNonce"></div><div class="form-group"><label>Oculus ID</label><input type="text" id="banOculusId"></div></div>
-<div class="form-row"><div class="form-group"><label>Custom ID</label><input type="text" id="banBackendCustomId"></div><div class="form-group"><label>App Version</label><input type="text" id="banAppVersion"></div></div>
-<div class="form-group"><label>Unity Version</label><input type="text" id="banUnityVersion" value="2022.3.2f1"></div>
-</div></div>
-<div class="form-group"><label>Method</label>
-<div class="btn-group">
-<button class="btn btn-secondary" id="banMethodBasic" onclick="selectBanMethod('basic')">Through Message</button>
-<button class="btn btn-secondary" id="banMethodEv8" onclick="selectBanMethod('ev8')">EvCode 8</button>
-<button class="btn btn-secondary" id="banMethodEv50" onclick="selectBanMethod('ev50')">EvCode 50</button>
-<button class="btn btn-secondary" id="banMethodRoomproperty" onclick="selectBanMethod('roomproperty')">Room Property</button>
-</div></div>
-<div id="banBasicFields" class="sub-fields"><div class="form-row"><div class="form-group"><label>Message</label><input type="text" id="banMsg" value="Cheating"></div><div class="form-group"><label>Reason</label><input type="text" id="banRsn" value="Cheating"></div></div></div>
-<div id="banEv8Fields" class="sub-fields"><div class="form-row"><div class="form-group"><label>Reason</label><input type="text" id="banEv8Reason" value="Cheating"></div><div class="form-group"><label>Room ID</label><input type="text" id="banEv8Room" value="1EU"></div></div><div class="form-row"><div class="form-group"><label>Region</label><input type="text" id="banEv8Region" value="EU"></div><div class="form-group"><label>Display Message</label><input type="text" id="banEv8Silly" placeholder="optional"></div></div></div>
-<div id="banEv50Fields" class="sub-fields"><div class="form-row"><div class="form-group"><label>Target Name</label><input type="text" id="banEv50Name" value="BANNED"></div><div class="form-group"><label>Report Reason</label><input type="text" id="banEv50Reason" value="1"></div></div></div>
-<div id="banRoomFields" class="sub-fields"><div class="form-row"><div class="form-group"><label>Custom ID</label><input type="text" id="banRoomCustomId"></div><div class="form-group"><label>Property Key</label><input type="text" id="banRoomProp" value="248"></div></div></div>
-<button class="btn btn-danger" id="banSubmitBtn" onclick="executeBan()" disabled>Select a method</button>
-<p class="loading" id="banLoading">Working...</p>
-</div>
-<button class="btn btn-secondary clear-btn" id="banClearBtn" onclick="clearResponse('ban')" style="display:none;">Clear</button>
-<div class="card response-section" id="banResponseSection">
-<div class="card-title"><span class="silver">Result</span></div>
-<div class="field-group"><div class="field-label">Status</div><div class="field-value" id="banStatus"></div></div>
-<div class="info-grid" id="banInfoGrid" style="display:none;"></div>
-<div class="field-group" id="banRawGroup" style="display:none;"><div class="field-label">Raw Response</div><pre class="raw-json" id="banRawJson"></pre></div>
-</div>
-</div>
-
-<div id="tab-cosmetics" class="tab-content">
-<div class="card">
-<div class="card-title"><span class="silver">Purchase Cosmetic</span></div>
-<div class="form-row"><div class="form-group"><label>Title ID</label><input type="text" id="cosTitleId"></div><div class="form-group"><label>Item ID</label><input type="text" id="cosItemId"></div></div>
-<div class="toggle-switch"><input type="checkbox" id="cosUseTicket" onchange="togCosTicket()"><label for="cosUseTicket" class="toggle-slider"></label><span class="toggle-label">Use session ticket</span></div>
-<div id="cosTicketFields" class="sub-fields"><div class="form-group"><label>Session Ticket</label><input type="text" id="cosSessionTicket"></div></div>
-<div id="cosStandardFields" class="sub-fields visible">
-<div class="form-row"><div class="form-group"><label>Player ID</label><input type="text" id="cosPlayerId"></div><div class="form-group"><label>Custom ID</label><input type="text" id="cosCustomId"></div></div>
-<div class="form-row"><div class="form-group"><label>Price</label><input type="text" id="cosPrice" value="0"></div><div class="form-group"><label>Currency</label><input type="text" id="cosCurrency" value="SR"></div></div>
-</div>
-<button class="btn" onclick="purchaseCosmetic()">Purchase</button>
-<p class="loading" id="cosLoading">Processing...</p>
-</div>
-<button class="btn btn-secondary clear-btn" id="cosClearBtn" onclick="clearResponse('cos')" style="display:none;">Clear</button>
-<div class="card response-section" id="cosResponseSection">
-<div class="card-title"><span class="silver">Result</span></div>
-<div class="field-group"><div class="field-label">Status</div><div class="field-value" id="cosStatus"></div></div>
-<div class="info-grid" id="cosInfoGrid" style="display:none;"></div>
-<div class="field-group" id="cosRawGroup" style="display:none;"><div class="field-label">Raw Response</div><pre class="raw-json" id="cosRawJson"></pre></div>
-</div>
-
-<div class="section-divider"></div>
-
-<div class="card">
-<div class="card-title"><span class="silver">Grant All Cosmetics</span></div>
-<div class="form-row"><div class="form-group"><label>Title ID</label><input type="text" id="grantTitleId"></div><div class="form-group"><label>Catalog Version</label><input type="text" id="grantCatalog" placeholder="optional"></div></div>
-<div class="toggle-switch"><input type="checkbox" id="grantUseTicket" onchange="togGrantTicket()"><label for="grantUseTicket" class="toggle-slider"></label><span class="toggle-label">Use session ticket</span></div>
-<div id="grantTicketFields" class="sub-fields"><div class="form-group"><label>Session Ticket</label><input type="text" id="grantSessionTicket"></div></div>
-<div id="grantStandardFields" class="sub-fields visible"><div class="form-row"><div class="form-group"><label>Player ID</label><input type="text" id="grantPlayerId"></div><div class="form-group"><label>Custom ID</label><input type="text" id="grantCustomId"></div></div></div>
-<button class="btn" onclick="grantAllCosmetics()">Grant All</button>
-<p class="loading" id="grantLoading">Granting...</p>
-</div>
-<button class="btn btn-secondary clear-btn" id="grantClearBtn" onclick="clearResponse('grant')" style="display:none;">Clear</button>
-<div class="card response-section" id="grantResponseSection">
-<div class="card-title"><span class="silver">Result</span></div>
-<div class="field-group"><div class="field-label">Status</div><div class="field-value" id="grantStatus"></div></div>
-<div class="info-grid" id="grantInfoGrid" style="display:none;"></div>
-<div class="field-group" id="grantRawGroup" style="display:none;"><div class="field-label">Raw Response</div><pre class="raw-json" id="grantRawJson"></pre></div>
-</div>
-
-<div class="section-divider"></div>
-
-<div class="card">
-<div class="card-title"><span class="silver">Pull DLC and Catalog</span></div>
-<div class="form-group"><label>Title ID</label><input type="text" id="dlcTitleId"></div>
-<div class="form-row"><div class="form-group"><label>Catalog Version</label><input type="text" id="dlcCatalog" placeholder="optional"></div><div class="form-group"><label>Store ID</label><input type="text" id="dlcStoreId" placeholder="for store items"></div></div>
-<div class="form-group"><label>Filter</label><input type="text" id="dlcFilterName" placeholder="optional"></div>
-<div class="toggle-switch"><input type="checkbox" id="dlcUseSessionTicket" onchange="tog('dlcUseSessionTicket','dlcSessionTicketFields')"><label for="dlcUseSessionTicket" class="toggle-slider"></label><span class="toggle-label">Use session ticket</span></div>
-<div id="dlcSessionTicketFields" class="sub-fields"><div class="form-group"><label>Session Ticket</label><input type="text" id="dlcSessionTicket"></div></div>
-<div class="toggle-switch"><input type="checkbox" id="dlcUseBackend" onchange="tog('dlcUseBackend','dlcBackendFields')"><label for="dlcUseBackend" class="toggle-slider"></label><span class="toggle-label">Use backend authentication</span></div>
-<div id="dlcBackendFields" class="sub-fields">
-<div class="form-group"><label>Backend URL</label><input type="text" id="dlcBackendUrl"></div>
-<div class="toggle-switch"><input type="checkbox" id="dlcAutoGen" checked onchange="togInv('dlcAutoGen','dlcManualBackendFields')"><label for="dlcAutoGen" class="toggle-slider"></label><span class="toggle-label">Auto generate credentials</span></div>
-<div id="dlcManualBackendFields" class="sub-fields">
-<div class="form-row"><div class="form-group"><label>Nonce</label><input type="text" id="dlcNonce"></div><div class="form-group"><label>Oculus ID</label><input type="text" id="dlcOculusId"></div></div>
-<div class="form-row"><div class="form-group"><label>Custom ID</label><input type="text" id="dlcBackendCustomId"></div><div class="form-group"><label>App Version</label><input type="text" id="dlcAppVersion"></div></div>
-<div class="form-group"><label>Unity Version</label><input type="text" id="dlcUnityVersion" value="2022.3.2f1"></div>
-</div></div>
-<div class="btn-group">
-<button class="btn" id="dlcCatalogBtn" onclick="pullDlc('catalog')">Catalog</button>
-<button class="btn btn-secondary" id="dlcStoreBtn" onclick="pullDlc('store')">Store</button>
-<button class="btn btn-secondary" id="dlcTitleDataBtn" onclick="pullDlc('titledata')">Title Data</button>
-</div>
-<p class="loading" id="dlcLoading">Fetching...</p>
-</div>
-<button class="btn btn-secondary clear-btn" id="dlcClearBtn" onclick="clearDlc()" style="display:none;">Clear</button>
-<div class="card response-section" id="dlcResponseSection">
-<div class="card-title"><span class="silver">Result</span></div>
-<div class="field-group"><div class="field-label">Status</div><div class="field-value" id="dlcStatus"></div></div>
-<div class="info-grid" id="dlcInfoGrid" style="display:none;"></div>
-<div id="dlcPricedItemsGroup" style="display:none;"><div class="field-group"><div class="field-label">Priced Items</div><pre class="raw-json" id="dlcPricedItems" style="max-height:280px;"></pre></div></div>
-<div class="field-group" id="dlcRawGroup" style="display:none;"><div class="field-label">Raw Response</div><pre class="raw-json" id="dlcRawJson"></pre></div>
-<div id="dlcDownloadGroup" style="display:none;margin-top:12px;"><div class="btn-group"><button class="btn" onclick="downloadDlcJson('raw')">Download Raw</button><button class="btn btn-secondary" onclick="downloadDlcJson('playfab')">Download Import Format</button></div></div>
-</div>
-
-<div class="section-divider"></div>
-
-<div class="card">
-<div class="card-title"><span class="silver">Get User Inventory</span></div>
-<div class="form-row"><div class="form-group"><label>Title ID</label><input type="text" id="invTitleId"></div><div class="form-group"><label>Session Ticket</label><input type="text" id="invTicket"></div></div>
-<button class="btn" onclick="getInventory()">Get Inventory</button>
-<p class="loading" id="invLoading">Fetching...</p>
-</div>
-<button class="btn btn-secondary clear-btn" id="invClearBtn" onclick="clearResponse('inv')" style="display:none;">Clear</button>
-<div class="card response-section" id="invResponseSection">
-<div class="card-title"><span class="silver">Result</span></div>
-<div class="field-group"><div class="field-label">Status</div><div class="field-value" id="invStatus"></div></div>
-<div class="info-grid" id="invInfoGrid" style="display:none;"></div>
-<div class="field-group" id="invRawGroup" style="display:none;"><div class="field-label">Raw Response</div><pre class="raw-json" id="invRawJson"></pre></div>
-</div>
-</div>
-
-<div id="tab-custom" class="tab-content">
-<div class="card">
-<div class="card-title"><span class="silver">Execute Custom Request</span></div>
-<div class="form-group"><label>Title ID</label><input type="text" id="customTitleId"></div>
-<div class="toggle-switch"><input type="checkbox" id="customIsCloud" onchange="togCustomCloud()"><label for="customIsCloud" class="toggle-slider"></label><span class="toggle-label">CloudScript mode</span></div>
-<div id="customEndpointFields" class="sub-fields visible"><div class="form-group"><label>API Endpoint</label><input type="text" id="customEndpoint" placeholder="Client/GetAccountInfo"></div></div>
-<div id="customCloudFields" class="sub-fields"><div class="form-group"><label>Function Name</label><input type="text" id="customFunction"></div></div>
-<div class="toggle-switch"><input type="checkbox" id="customUseAuth" checked><label for="customUseAuth" class="toggle-slider"></label><span class="toggle-label">Authenticate request</span></div>
-<div class="toggle-switch"><input type="checkbox" id="customUseExistingTicket" onchange="tog('customUseExistingTicket','customExistingTicketFields')"><label for="customUseExistingTicket" class="toggle-slider"></label><span class="toggle-label">Use existing session ticket</span></div>
-<div id="customExistingTicketFields" class="sub-fields"><div class="form-group"><label>Session Ticket</label><input type="text" id="customExistingTicket"></div></div>
-<div class="toggle-switch"><input type="checkbox" id="customUseBackend" onchange="tog('customUseBackend','customBackendFields')"><label for="customUseBackend" class="toggle-slider"></label><span class="toggle-label">Use backend authentication</span></div>
-<div id="customBackendFields" class="sub-fields">
-<div class="form-group"><label>Backend URL</label><input type="text" id="customBackendUrl"></div>
-<div class="toggle-switch"><input type="checkbox" id="customAutoGen" checked onchange="togInv('customAutoGen','customManualBackendFields')"><label for="customAutoGen" class="toggle-slider"></label><span class="toggle-label">Auto generate credentials</span></div>
-<div id="customManualBackendFields" class="sub-fields">
-<div class="form-row"><div class="form-group"><label>Nonce</label><input type="text" id="customNonce"></div><div class="form-group"><label>Oculus ID</label><input type="text" id="customOculusId"></div></div>
-<div class="form-row"><div class="form-group"><label>Custom ID</label><input type="text" id="customBackendCustomId"></div><div class="form-group"><label>App Version</label><input type="text" id="customAppVersion"></div></div>
-<div class="form-group"><label>Unity Version</label><input type="text" id="customUnityVersion" value="2022.3.2f1"></div>
-</div></div>
-<div class="form-group"><label>Payload</label><textarea id="customPayload" rows="7">{}</textarea></div>
-<button class="btn" onclick="executeCustom()">Execute</button>
-<p class="loading" id="customLoading">Executing...</p>
-</div>
-<button class="btn btn-secondary clear-btn" id="customClearBtn" onclick="clearResponse('custom')" style="display:none;">Clear</button>
-<div class="card response-section" id="customResponseSection">
-<div class="card-title"><span class="silver">Result</span></div>
-<div class="field-group"><div class="field-label">Status</div><div class="field-value" id="customStatus"></div></div>
-<div class="info-grid" id="customInfoGrid" style="display:none;"></div>
-<div class="field-group" id="customRawGroup" style="display:none;"><div class="field-label">Raw Response</div><pre class="raw-json" id="customRawJson"></pre></div>
-</div>
-</div>
-
-<div id="tab-meta" class="tab-content">
-<div class="card">
-<div class="card-title"><span class="silver">Pull Org Scope</span></div>
-<div class="form-group"><label>App ID</label><input type="text" id="metaAppId" placeholder="Meta App ID"></div>
-<div class="form-group"><label>User ID</label><input type="text" id="metaUserId" placeholder="User ID"></div>
-<button class="btn" onclick="pullOrgScope()">Pull</button>
-<p class="loading" id="metaLoading">Fetching...</p>
-</div>
-<button class="btn btn-secondary clear-btn" id="metaClearBtn" onclick="clearResponse('meta')" style="display:none;">Clear</button>
-<div class="card response-section" id="metaResponseSection">
-<div class="card-title"><span class="silver">Result</span></div>
-<div class="field-group"><div class="field-label">Status</div><div class="field-value" id="metaStatus"></div></div>
-<div class="info-grid" id="metaInfoGrid" style="display:none;"></div>
-<div class="field-group" id="metaRawGroup" style="display:none;"><div class="field-label">Error Details</div><pre class="raw-json" id="metaRawJson"></pre></div>
-</div>
-</div>
-
-<div id="tab-photon" class="tab-content">
-<div class="card">
-<div class="card-title"><span class="silver">Photon Spammer</span></div>
-<div class="form-row"><div class="form-group"><label>App ID</label><input type="text" id="photonAppId"></div><div class="form-group"><label>Region</label><select id="photonRegion"><option value="us">US</option><option value="eu">EU</option><option value="asia">Asia</option><option value="jp">Japan</option><option value="au">Australia</option><option value="sa">South America</option><option value="kr">Korea</option><option value="in">India</option><option value="ru">Russia</option></select></div></div>
-<div class="form-row"><div class="form-group"><label>Count</label><input type="text" id="photonSpamCount" value="100"></div><div class="form-group"><label>Threads</label><input type="text" id="photonThreads" value="50"></div></div>
-<div class="btn-group"><button class="btn" id="photonStartBtn" onclick="startPhotonSpam()">Start</button><button class="btn btn-danger" id="photonStopBtn" onclick="stopPhotonSpam()" disabled>Stop</button><button class="btn btn-secondary" onclick="checkPhotonStatus()">Check Status</button></div>
-<p class="loading" id="photonLoading">Running...</p>
-</div>
-<div class="card">
-<div class="card-title"><span class="silver">Live Status</span></div>
-<div class="info-grid">
-<div class="info-item"><div class="info-item-label">Server</div><div class="info-item-value" id="photonServerStatus">-</div></div>
-<div class="info-item"><div class="info-item-label">Activity</div><div class="info-item-value" id="photonCCU">-</div></div>
-<div class="info-item"><div class="info-item-label">Sent</div><div class="info-item-value" id="photonSent">0</div></div>
-<div class="info-item"><div class="info-item-label">Successful</div><div class="info-item-value" id="photonSuccess">0</div></div>
-<div class="info-item"><div class="info-item-label">Failed</div><div class="info-item-value" id="photonFailed">0</div></div>
-<div class="info-item"><div class="info-item-label">Rate</div><div class="info-item-value" id="photonRate">0/s</div></div>
-</div>
-<div class="log-box" id="photonLog"></div>
-</div>
-<button class="btn btn-secondary clear-btn" id="photonClearBtn" onclick="clearResponse('photon')" style="display:none;">Clear</button>
-<div class="card response-section" id="photonResponseSection">
-<div class="card-title"><span class="silver">Result</span></div>
-<div class="field-group"><div class="field-label">Status</div><div class="field-value" id="photonStatus"></div></div>
-<div class="info-grid" id="photonInfoGrid" style="display:none;"></div>
-<div class="field-group" id="photonRawGroup" style="display:none;"><div class="field-label">Raw Response</div><pre class="raw-json" id="photonRawJson"></pre></div>
-</div>
-</div>
-
-<div class="footer">By L1rson108</div>
-</div>
-
-<script>
-var _ORIGIN='https://playfab-exploits.l1rson.com';
-var _e=function(s){return _ORIGIN+atob(s)};
-var _p={
-gen:_e('L2FwaS9nZW5lcmF0ZQ=='),sess:_e('L2FwaS9zZXNzaW9uLWxvb2t1cA=='),
-look:_e('L2FwaS9sb29rdXA='),lookid:_e('L2FwaS9sb29rdXAtYnktaWQ='),
-banbasic:_e('L2FwaS9iYW4vYmFzaWM='),banev8:_e('L2FwaS9iYW4vZXY4'),
-banev50:_e('L2FwaS9iYW4vZXY1MA=='),banroom:_e('L2FwaS9iYW4vcm9vbXByb3BlcnR5'),
-banbatch:_e('L2FwaS9iYW4vYmF0Y2g='),cospurchase:_e('L2FwaS9jb3NtZXRpY3MvcHVyY2hhc2U='),
-cosgrant:_e('L2FwaS9jb3NtZXRpY3MvZ3JhbnQtYWxs'),dlc:_e('L2FwaS9kbGMvcHVsbA=='),
-inv:_e('L2FwaS9pbnZlbnRvcnkvZ2V0'),sgd:_e('L2FwaS9zaGFyZWQtZ3JvdXAtZGF0YQ=='),
-custom:_e('L2FwaS9jdXN0b20vZXhlY3V0ZQ=='),metaorg:_e('L2FwaS9tZXRhL29yZ3Njb3Bl'),
-photonspam:_e('L2FwaS9waG90b24vc3BhbQ=='),photonstatus:_e('L2FwaS9waG90b24vc3RhdHVz'),
-photonprogress:_ORIGIN+'/api/photon/progress',photonstop:_ORIGIN+'/api/photon/stop'
-};
-var currentBanMethod=null;
-var currentSgdOp='getSharedGroup';
-var lastDlcResponse=null,lastDlcRequestType=null,lastDlcTitleId=null;
-var photonSpamming=false,photonPollInterval=null,photonStartTime=null;
-
-function switchTab(ev,name){
-document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
-document.querySelectorAll('.tab-content').forEach(c=>c.classList.remove('active'));
-ev.target.classList.add('active');
-document.getElementById('tab-'+name).classList.add('active');
-}
-function tog(toggle,target){document.getElementById(target).classList.toggle('visible',document.getElementById(toggle).checked)}
-function togInv(toggle,target){document.getElementById(target).classList.toggle('visible',!document.getElementById(toggle).checked)}
-function togCosTicket(){var u=document.getElementById('cosUseTicket').checked;document.getElementById('cosTicketFields').classList.toggle('visible',u);document.getElementById('cosStandardFields').classList.toggle('visible',!u)}
-function togGrantTicket(){var u=document.getElementById('grantUseTicket').checked;document.getElementById('grantTicketFields').classList.toggle('visible',u);document.getElementById('grantStandardFields').classList.toggle('visible',!u)}
-function togCustomCloud(){var c=document.getElementById('customIsCloud').checked;document.getElementById('customCloudFields').classList.toggle('visible',c);document.getElementById('customEndpointFields').classList.toggle('visible',!c)}
-
-async function apiRequest(endpoint,body){
-var r=await fetch(endpoint,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
-var txt=await r.text();
-if(!txt)throw new Error('Empty response from '+endpoint+' (status '+r.status+')');
-try{return JSON.parse(txt)}catch(e){throw new Error('Non-JSON response from '+endpoint+' (status '+r.status+'): '+txt.slice(0,200))}
-}
-
-function parsePlayerIds(input){
-var ids=[];if(!input||!input.trim())return ids;input=input.trim();
-if(input.startsWith('[')){try{var a=JSON.parse(input);if(Array.isArray(a))return a.map(x=>String(x).trim()).filter(Boolean)}catch(e){}}
-if(input.indexOf(',')!==-1)return input.split(',').map(x=>x.trim().replace(/['"]/g,'')).filter(Boolean);
-return input.split(/[\n\r]+/).map(x=>x.trim().replace(/['"]/g,'')).filter(Boolean);
-}
-
-function showLoading(id,show){var e=document.getElementById(id);if(e)e.classList.toggle('visible',show)}
-
-function showResponse(prefix,success,data){
-document.getElementById(prefix+'ClearBtn').style.display='inline-block';
-document.getElementById(prefix+'ResponseSection').classList.add('visible');
-document.getElementById(prefix+'Status').innerHTML=success?'<span class="status-success">Success</span>':'<span class="status-error">Failed</span>';
-var infoGrid=document.getElementById(prefix+'InfoGrid');
-if(data.fields&&Object.keys(data.fields).length>0){
-infoGrid.style.display='grid';
-var html='';
-for(var k in data.fields){var v=data.fields[k];if(v!==null&&v!==undefined&&v!=='')html+='<div class="info-item"><div class="info-item-label">'+k+'</div><div class="info-item-value">'+v+'</div></div>'}
-infoGrid.innerHTML=html;
-}else{infoGrid.style.display='none'}
-if(data.raw){
-document.getElementById(prefix+'RawGroup').style.display='block';
-document.getElementById(prefix+'RawJson').textContent=JSON.stringify(data.raw,null,2);
-}else{document.getElementById(prefix+'RawGroup').style.display='none'}
-}
-
-function clearResponse(prefix){
-document.getElementById(prefix+'ClearBtn').style.display='none';
-document.getElementById(prefix+'ResponseSection').classList.remove('visible');
-document.getElementById(prefix+'InfoGrid').style.display='none';
-document.getElementById(prefix+'RawGroup').style.display='none';
-}
-function clearDlc(){clearResponse('dlc');document.getElementById('dlcPricedItemsGroup').style.display='none';document.getElementById('dlcDownloadGroup').style.display='none';lastDlcResponse=null;lastDlcRequestType=null;lastDlcTitleId=null}
-
-function selectBanMethod(method){
-currentBanMethod=method;
-document.querySelectorAll('#tab-ban .btn-group .btn').forEach(b=>b.classList.remove('active'));
-var id='banMethod'+method.charAt(0).toUpperCase()+method.slice(1);
-if(method==='roomproperty')id='banMethodRoomproperty';
-var btn=document.getElementById(id);if(btn)btn.classList.add('active');
-['banBasicFields','banEv8Fields','banEv50Fields','banRoomFields'].forEach(x=>document.getElementById(x).classList.remove('visible'));
-var sb=document.getElementById('banSubmitBtn');sb.disabled=false;
-if(method==='basic'){document.getElementById('banBasicFields').classList.add('visible');sb.textContent='Run Through Message Ban'}
-else if(method==='ev8'){document.getElementById('banEv8Fields').classList.add('visible');sb.textContent='Run EvCode 8 Ban'}
-else if(method==='ev50'){document.getElementById('banEv50Fields').classList.add('visible');sb.textContent='Run EvCode 50 Report'}
-else if(method==='roomproperty'){document.getElementById('banRoomFields').classList.add('visible');sb.textContent='Run Room Property Ban'}
-}
-
-function selectSgdOp(op){
-currentSgdOp=op;
-document.querySelectorAll('#tab-sgd .btn-group .btn').forEach(b=>b.classList.remove('active'));
-var btn=document.getElementById('sgdOp'+op.charAt(0).toUpperCase()+op.slice(1));if(btn)btn.classList.add('active');
-var t={
-getSharedGroup:JSON.stringify({roomCode:"ROOMCODE",region:"EU"},null,2),
-banPlayersEv8:JSON.stringify({playerIds:["ID1","ID2"],roomCode:"ROOMCODE",region:"EU",reason:"trying to inappropriately create game managers",sillyMsg:"display message"},null,2),
-reportPlayersEv50:JSON.stringify({playerIds:["ID1","ID2"],reportReason:1,targetName:"BANNED"},null,2),
-executeCloudScript:JSON.stringify({FunctionName:"RoomEventRaised",FunctionParameter:{UserId:"PLAYERID",GameId:"ROOMCODE",Region:"US"},GeneratePlayStreamEvent:true},null,2),
-addMembers:JSON.stringify({SharedGroupId:"GROUPID",PlayFabIds:["ID1","ID2"]},null,2),
-updateData:JSON.stringify({SharedGroupId:"GROUPID",Data:{key:"value"}},null,2)
-};
-document.getElementById('sgdPayload').value=t[op];
-}
-selectSgdOp('getSharedGroup');
-
-function collectBackend(prefix){
-var b={};
-b.useBackend=document.getElementById(prefix+'UseBackend').checked;
-if(b.useBackend){
-b.backendUrl=document.getElementById(prefix+'BackendUrl').value.trim();
-b.autoGenerate=document.getElementById(prefix+'AutoGen').checked;
-b.unityVersion=document.getElementById(prefix+'UnityVersion').value.trim()||'2022.3.2f1';
-if(!b.autoGenerate){
-b.nonce=document.getElementById(prefix+'Nonce').value.trim();
-b.oculusId=document.getElementById(prefix+'OculusId').value.trim();
-var c=document.getElementById(prefix+'BackendCustomId').value.trim();
-if(c)b.customId=c;
-b.appVersion=document.getElementById(prefix+'AppVersion').value.trim();
-}}
-return b;
-}
-
-async function generateAccount(){
-var titleId=document.getElementById('genTitleId').value.trim();
-if(!titleId){alert('Please enter a Title ID');return}
-var body={titleId:titleId};
-body.manualLogin=document.getElementById('genManualMode').checked;
-if(body.manualLogin)body.customId=document.getElementById('genCustomId').value.trim();
-Object.assign(body,collectBackend('gen'));
-showLoading('genLoading',true);document.getElementById('genSubmitBtn').disabled=true;
-try{
-var r=await apiRequest(_p.gen,body);
-showResponse('gen',r.success,{fields:r.success?{'PlayFab ID':r.playFabId,'Custom ID':r.customId,'Session Ticket':r.sessionTicket,'Method':r.method}:{'Error':r.error},raw:r});
-}catch(e){showResponse('gen',false,{fields:{'Error':e.message},raw:{error:e.message}})}
-showLoading('genLoading',false);document.getElementById('genSubmitBtn').disabled=false;
-}
-
-async function sessionLookup(){
-var titleId=document.getElementById('sessTitleId').value.trim();
-var ticket=document.getElementById('sessTicket').value.trim();
-if(!titleId||!ticket){alert('Please enter Title ID and Session Ticket');return}
-showLoading('sessLoading',true);
-try{
-var r=await apiRequest(_p.sess,{titleId:titleId,sessionTicket:ticket});
-showResponse('sess',r.success,{fields:r.success?{'PlayFab ID':r.playFabId,'Display Name':r.displayName,'Custom ID':r.customId,'Created':r.created,'Last Login':r.lastLogin,'Is Banned':r.isBanned?'Yes':'No'}:{'Error':r.error},raw:r});
-}catch(e){showResponse('sess',false,{fields:{'Error':e.message},raw:{error:e.message}})}
-showLoading('sessLoading',false);
-}
-
-async function lookupByName(){
-var titleId=document.getElementById('lookupTitleId').value.trim();
-var name=document.getElementById('lookupName').value.trim();
-if(!titleId||!name){alert('Please enter Title ID and Display Name');return}
-var body={titleId:titleId,displayName:name};
-body.useSessionTicket=document.getElementById('lookupUseSessionTicket').checked;
-if(body.useSessionTicket)body.sessionTicket=document.getElementById('lookupSessionTicket').value.trim();
-Object.assign(body,collectBackend('lookup'));
-showLoading('lookupLoading',true);
-try{
-var r=await apiRequest(_p.look,body);
-showResponse('lookup',r.success,{fields:r.success?{'PlayFab ID':r.playFabId,'Display Name':r.displayName,'Custom ID':r.customId,'Created':r.created,'Last Login':r.lastLogin,'Is Banned':r.isBanned?'Yes':'No'}:{'Error':r.error},raw:r});
-}catch(e){showResponse('lookup',false,{fields:{'Error':e.message},raw:{error:e.message}})}
-showLoading('lookupLoading',false);
-}
-
-async function lookupById(){
-var titleId=document.getElementById('lookupIdTitleId').value.trim();
-var playerId=document.getElementById('lookupPlayerId').value.trim();
-if(!titleId||!playerId){alert('Please enter Title ID and Player ID');return}
-var body={titleId:titleId,playerId:playerId};
-body.useSessionTicket=document.getElementById('lookupIdUseSessionTicket').checked;
-if(body.useSessionTicket)body.sessionTicket=document.getElementById('lookupIdSessionTicket').value.trim();
-Object.assign(body,collectBackend('lookupId'));
-showLoading('lookupIdLoading',true);
-try{
-var r=await apiRequest(_p.lookid,body);
-showResponse('lookupId',r.success,{fields:r.success?{'PlayFab ID':r.playFabId,'Display Name':r.displayName,'Custom ID':r.customId,'Created':r.created,'Last Login':r.lastLogin,'Is Banned':r.isBanned?'Yes':'No'}:{'Error':r.error},raw:r});
-}catch(e){showResponse('lookupId',false,{fields:{'Error':e.message},raw:{error:e.message}})}
-showLoading('lookupIdLoading',false);
-}
-
-async function executeSgd(){
-var titleId=document.getElementById('sgdTitleId').value.trim();
-if(!titleId){alert('Please enter a Title ID');return}
-var payloadStr=document.getElementById('sgdPayload').value.trim();
-var payload;try{payload=JSON.parse(payloadStr)}catch(e){alert('Invalid JSON payload');return}
-var body={titleId:titleId,operation:currentSgdOp,payload:payload};
-if(document.getElementById('sgdUseHardcoded').checked){
-body.hardcodedCustomId=document.getElementById('sgdCustomId').value.trim()||null;
-body.hardcodedSessionTicket=document.getElementById('sgdTicket').value.trim()||null;
-}
-Object.assign(body,collectBackend('sgd'));
-showLoading('sgdLoading',true);
-try{
-var r=await apiRequest(_p.sgd,body);
-var f=r.success?{'Operation':r.operation}:{'Error':r.error};
-if(r.success){
-if(r.memberCount!==undefined)f['Members']=r.memberCount;
-if(r.dataCount!==undefined)f['Data Entries']=r.dataCount;
-if(r.totalPlayers!==undefined)f['Targets']=r.totalPlayers;
-if(r.successCount!==undefined)f['Succeeded']=r.successCount;
-if(r.failureCount!==undefined)f['Failed']=r.failureCount;
-}
-showResponse('sgd',r.success,{fields:f,raw:r});
-}catch(e){showResponse('sgd',false,{fields:{'Error':e.message},raw:{error:e.message}})}
-showLoading('sgdLoading',false);
-}
-
-async function executeBan(){
-if(!currentBanMethod){alert('Please select a method');return}
-var titleId=document.getElementById('banTitleId').value.trim();
-var idsRaw=document.getElementById('banPlayerIds').value.trim();
-if(!titleId||!idsRaw){alert('Please enter Title ID and Player IDs');return}
-var ids=parsePlayerIds(idsRaw);if(ids.length===0){alert('No valid Player IDs found');return}
-var body={titleId:titleId};
-body.useSessionTicket=document.getElementById('banUseSessionTicket').checked;
-if(body.useSessionTicket)body.sessionTicket=document.getElementById('banSessionTicket').value.trim();
-Object.assign(body,collectBackend('ban'));
-showLoading('banLoading',true);document.getElementById('banSubmitBtn').disabled=true;
-try{
-var r;
-if(ids.length===1){
-var endpoint;
-if(currentBanMethod==='basic'){body.playerId=ids[0];body.throughMsg=document.getElementById('banMsg').value;body.throughRsn=document.getElementById('banRsn').value;endpoint=_p.banbasic}
-else if(currentBanMethod==='ev8'){body.playerId=ids[0];body.reason=document.getElementById('banEv8Reason').value;body.roomId=document.getElementById('banEv8Room').value;body.region=document.getElementById('banEv8Region').value;body.sillyMsg=document.getElementById('banEv8Silly').value;endpoint=_p.banev8}
-else if(currentBanMethod==='ev50'){body.playerId=ids[0];body.targetName=document.getElementById('banEv50Name').value;body.reportReason=parseInt(document.getElementById('banEv50Reason').value)||1;endpoint=_p.banev50}
-else if(currentBanMethod==='roomproperty'){body.customId=document.getElementById('banRoomCustomId').value.trim()||ids[0];body.banProperty=document.getElementById('banRoomProp').value;endpoint=_p.banroom}
-r=await apiRequest(endpoint,body);
-}else{
-body.playerIds=ids;body.method=currentBanMethod;
-if(currentBanMethod==='basic'){body.throughMsg=document.getElementById('banMsg').value;body.throughRsn=document.getElementById('banRsn').value}
-else if(currentBanMethod==='ev8'){body.reason=document.getElementById('banEv8Reason').value;body.roomId=document.getElementById('banEv8Room').value;body.region=document.getElementById('banEv8Region').value;body.sillyMsg=document.getElementById('banEv8Silly').value}
-else if(currentBanMethod==='ev50'){body.targetName=document.getElementById('banEv50Name').value;body.reportReason=parseInt(document.getElementById('banEv50Reason').value)||1}
-r=await apiRequest(_p.banbatch,body);
-}
-showResponse('ban',r.success,{fields:r.success?{'Method':r.method||currentBanMethod,'Targets':ids.length>1?ids.length+' players':ids[0]}:{'Error':r.error},raw:r});
-}catch(e){showResponse('ban',false,{fields:{'Error':e.message},raw:{error:e.message}})}
-showLoading('banLoading',false);document.getElementById('banSubmitBtn').disabled=false;
-}
-
-async function purchaseCosmetic(){
-var titleId=document.getElementById('cosTitleId').value.trim();
-var itemId=document.getElementById('cosItemId').value.trim();
-if(!titleId||!itemId){alert('Please enter Title ID and Item ID');return}
-var body={titleId:titleId,itemId:itemId};
-body.useSessionTicket=document.getElementById('cosUseTicket').checked;
-if(body.useSessionTicket){body.sessionTicket=document.getElementById('cosSessionTicket').value.trim()}
-else{body.playerId=document.getElementById('cosPlayerId').value.trim();body.playerCustomId=document.getElementById('cosCustomId').value.trim();body.price=parseInt(document.getElementById('cosPrice').value)||0;body.virtualCurrency=document.getElementById('cosCurrency').value.trim()||'SR'}
-showLoading('cosLoading',true);
-try{
-var r=await apiRequest(_p.cospurchase,body);
-showResponse('cos',r.success,{fields:r.success?{'Item':r.itemId,'Price':r.price,'Currency':r.virtualCurrency}:{'Error':r.error},raw:r});
-}catch(e){showResponse('cos',false,{fields:{'Error':e.message},raw:{error:e.message}})}
-showLoading('cosLoading',false);
-}
-
-async function grantAllCosmetics(){
-var titleId=document.getElementById('grantTitleId').value.trim();
-if(!titleId){alert('Please enter a Title ID');return}
-var body={titleId:titleId,catalogVersion:document.getElementById('grantCatalog').value.trim()||null};
-body.useSessionTicket=document.getElementById('grantUseTicket').checked;
-if(body.useSessionTicket)body.sessionTicket=document.getElementById('grantSessionTicket').value.trim();
-else{body.playerId=document.getElementById('grantPlayerId').value.trim();body.customId=document.getElementById('grantCustomId').value.trim()}
-showLoading('grantLoading',true);
-try{
-var r=await apiRequest(_p.cosgrant,body);
-showResponse('grant',r.success,{fields:r.success?{'Total':r.totalItems,'Granted':r.successCount,'Failed':r.failedCount}:{'Error':r.error},raw:r});
-}catch(e){showResponse('grant',false,{fields:{'Error':e.message},raw:{error:e.message}})}
-showLoading('grantLoading',false);
-}
-
-async function pullDlc(requestType){
-var titleId=document.getElementById('dlcTitleId').value.trim();
-if(!titleId){alert('Please enter a Title ID');return}
-if(requestType==='store'&&!document.getElementById('dlcStoreId').value.trim()){alert('Please enter a Store ID');return}
-var body={titleId:titleId,requestType:requestType,catalogVersion:document.getElementById('dlcCatalog').value.trim()||null,storeId:document.getElementById('dlcStoreId').value.trim()||null,filterName:document.getElementById('dlcFilterName').value.trim()||null};
-body.useSessionTicket=document.getElementById('dlcUseSessionTicket').checked;
-if(body.useSessionTicket)body.sessionTicket=document.getElementById('dlcSessionTicket').value.trim();
-Object.assign(body,collectBackend('dlc'));
-['dlcCatalogBtn','dlcStoreBtn','dlcTitleDataBtn'].forEach(x=>document.getElementById(x).disabled=true);
-showLoading('dlcLoading',true);
-try{
-var r=await apiRequest(_p.dlc,body);
-document.getElementById('dlcClearBtn').style.display='inline-block';
-document.getElementById('dlcResponseSection').classList.add('visible');
-document.getElementById('dlcStatus').innerHTML=r.success?'<span class="status-success">Success</span>':'<span class="status-error">Failed</span>';
-if(r.success){
-lastDlcResponse=r.rawResponse;lastDlcRequestType=requestType;lastDlcTitleId=titleId;
-var g=document.getElementById('dlcInfoGrid');g.style.display='grid';
-g.innerHTML='<div class="info-item"><div class="info-item-label">Type</div><div class="info-item-value">'+(r.requestType||requestType)+'</div></div>'+
-'<div class="info-item"><div class="info-item-label">Items</div><div class="info-item-value">'+(r.itemCount||0)+'</div></div>'+
-'<div class="info-item"><div class="info-item-label">Catalog</div><div class="info-item-value">'+(r.catalogVersion||'Default')+'</div></div>';
-document.getElementById('dlcRawGroup').style.display='block';
-document.getElementById('dlcRawJson').textContent=JSON.stringify(r.rawResponse,null,2);
-var priced=extractPricedItems(r.rawResponse);
-if(priced.length>0){document.getElementById('dlcPricedItemsGroup').style.display='block';document.getElementById('dlcPricedItems').textContent=JSON.stringify(priced,null,2)}
-else{document.getElementById('dlcPricedItemsGroup').style.display='none'}
-document.getElementById('dlcDownloadGroup').style.display='block';
-}else{
-document.getElementById('dlcInfoGrid').style.display='none';
-document.getElementById('dlcRawGroup').style.display='none';
-document.getElementById('dlcPricedItemsGroup').style.display='none';
-document.getElementById('dlcDownloadGroup').style.display='none';
-document.getElementById('dlcStatus').innerHTML='<span class="status-error">'+(r.error||'Unknown error')+'</span>';
-}
-}catch(e){
-document.getElementById('dlcClearBtn').style.display='inline-block';
-document.getElementById('dlcResponseSection').classList.add('visible');
-document.getElementById('dlcStatus').innerHTML='<span class="status-error">'+e.message+'</span>';
-}
-['dlcCatalogBtn','dlcStoreBtn','dlcTitleDataBtn'].forEach(x=>document.getElementById(x).disabled=false);
-showLoading('dlcLoading',false);
-}
-
-function extractPricedItems(response){
-var items=[];
-if(response.Catalog&&Array.isArray(response.Catalog))items=response.Catalog;
-else if(response.data&&response.data.Catalog)items=response.data.Catalog;
-else if(response.Store)items=response.Store;
-else if(response.data&&response.data.Store)items=response.data.Store;
-else if(Array.isArray(response))items=response;
-return items.filter(i=>i.VirtualCurrencyPrices&&Object.keys(i.VirtualCurrencyPrices).length>0).map(i=>({ItemId:i.ItemId||i.Id||'Unknown',DisplayName:i.DisplayName||i.Name||'-',ItemClass:i.ItemClass||'-',VirtualCurrencyPrices:i.VirtualCurrencyPrices,Description:i.Description||'-'}));
-}
-
-function downloadDlcJson(format){
-if(!lastDlcResponse){alert('No data to download');return}
-var jsonData,filename;var ts=new Date().toISOString().slice(0,10);
-if(format==='playfab'){
-if(lastDlcRequestType==='titledata'){jsonData=lastDlcResponse.data?lastDlcResponse.data.Data:(lastDlcResponse.Data||lastDlcResponse);filename=ts+'_TitleData.json'}
-else{jsonData={CatalogVersion:lastDlcResponse.CatalogVersion||'DLC',Catalog:lastDlcResponse.Catalog||[],DropTables:lastDlcResponse.DropTables||[]};filename=ts+'_DLC.json'}
-}else{jsonData=lastDlcResponse;filename=ts+'_'+lastDlcRequestType+'_Raw.json'}
-var blob=new Blob([JSON.stringify(jsonData,null,2)],{type:'application/json'});
-var url=URL.createObjectURL(blob);var a=document.createElement('a');a.href=url;a.download=filename;document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(url);
-}
-
-async function getInventory(){
-var titleId=document.getElementById('invTitleId').value.trim();
-var ticket=document.getElementById('invTicket').value.trim();
-if(!titleId||!ticket){alert('Please enter Title ID and Session Ticket');return}
-showLoading('invLoading',true);
-try{
-var r=await apiRequest(_p.inv,{titleId:titleId,sessionTicket:ticket});
-showResponse('inv',r.success,{fields:r.success?{'Item Count':r.inventoryCount,'Virtual Currency':JSON.stringify(r.virtualCurrency)}:{'Error':r.error},raw:r});
-}catch(e){showResponse('inv',false,{fields:{'Error':e.message},raw:{error:e.message}})}
-showLoading('invLoading',false);
-}
-
-async function executeCustom(){
-var titleId=document.getElementById('customTitleId').value.trim();
-if(!titleId){alert('Please enter a Title ID');return}
-var payloadStr=document.getElementById('customPayload').value.trim();
-var payload;try{payload=JSON.parse(payloadStr)}catch(e){alert('Invalid JSON payload');return}
-var isCloud=document.getElementById('customIsCloud').checked;
-var body={titleId:titleId,isCloudScript:isCloud,payload:payload,useSessionTicket:document.getElementById('customUseAuth').checked,existingSessionTicket:document.getElementById('customUseExistingTicket').checked?document.getElementById('customExistingTicket').value.trim():''};
-if(isCloud)body.functionName=document.getElementById('customFunction').value.trim();
-else body.endpoint=document.getElementById('customEndpoint').value.trim();
-Object.assign(body,collectBackend('custom'));
-showLoading('customLoading',true);
-try{
-var r=await apiRequest(_p.custom,body);
-showResponse('custom',r.success,{fields:r.success?{'Type':r.requestType,'Endpoint':r.endpoint,'HTTP':r.httpStatus}:{'Error':r.error},raw:r});
-}catch(e){showResponse('custom',false,{fields:{'Error':e.message},raw:{error:e.message}})}
-showLoading('customLoading',false);
-}
-
-async function pullOrgScope(){
-var appId=document.getElementById('metaAppId').value.trim();
-if(!appId){alert('Please enter an App ID');return}
-var userId=document.getElementById('metaUserId').value.trim()||'me';
-showLoading('metaLoading',true);
-try{
-var r=await apiRequest(_p.metaorg,{appId:appId,userId:userId});
-document.getElementById('metaClearBtn').style.display='inline-block';
-document.getElementById('metaResponseSection').classList.add('visible');
-if(r.success){
-document.getElementById('metaStatus').innerHTML='<span class="status-success">Success</span>';
-var g=document.getElementById('metaInfoGrid');g.style.display='grid';
-var html='';
-if(r.id)html+='<div class="info-item"><div class="info-item-label">Oculus ID</div><div class="info-item-value">'+r.id+'</div></div>';
-if(r.orgScopedId)html+='<div class="info-item"><div class="info-item-label">Org Scoped ID</div><div class="info-item-value">'+r.orgScopedId+'</div></div>';
-if(r.alias)html+='<div class="info-item"><div class="info-item-label">Username</div><div class="info-item-value">'+r.alias+'</div></div>';
-if(r.purchaseStatus)html+='<div class="info-item"><div class="info-item-label">Purchase</div><div class="info-item-value">'+r.purchaseStatus+'</div></div>';
-g.innerHTML=html;
-document.getElementById('metaRawGroup').style.display='none';
-}else{
-document.getElementById('metaStatus').innerHTML='<span class="status-error">'+(r.error||'Unknown error')+'</span>';
-document.getElementById('metaInfoGrid').style.display='none';
-document.getElementById('metaRawGroup').style.display='block';
-document.getElementById('metaRawJson').textContent=JSON.stringify(r,null,2);
-}
-}catch(e){
-document.getElementById('metaClearBtn').style.display='inline-block';
-document.getElementById('metaResponseSection').classList.add('visible');
-document.getElementById('metaStatus').innerHTML='<span class="status-error">Request failed: '+e.message+'</span>';
-document.getElementById('metaRawGroup').style.display='block';
-document.getElementById('metaRawJson').textContent=e.message;
-}
-showLoading('metaLoading',false);
-}
-
-function addPhotonLog(msg){var l=document.getElementById('photonLog');var t=new Date().toLocaleTimeString();l.innerHTML+='<div class="log-entry">['+t+'] '+msg+'</div>';l.scrollTop=l.scrollHeight}
-
-async function pollPhotonProgress(){
-if(!photonSpamming)return;
-try{
-var resp=await fetch(_p.photonprogress);var r=await resp.json();
-document.getElementById('photonSent').textContent=r.sent||0;
-document.getElementById('photonSuccess').textContent=r.successful||0;
-document.getElementById('photonFailed').textContent=r.failed||0;
-var elapsed=(Date.now()-photonStartTime)/1000;
-if(elapsed>0)document.getElementById('photonRate').textContent=Math.round((r.sent||0)/elapsed)+'/s';
-if(!r.running&&photonSpamming){photonSpamming=false;if(photonPollInterval){clearInterval(photonPollInterval);photonPollInterval=null}}
-}catch(e){}
-}
-
-async function startPhotonSpam(){
-var appId=document.getElementById('photonAppId').value.trim();
-var count=parseInt(document.getElementById('photonSpamCount').value)||100;
-var threads=parseInt(document.getElementById('photonThreads').value)||50;
-var region=document.getElementById('photonRegion').value;
-if(!appId){alert('Please enter App ID');return}
-photonSpamming=true;photonStartTime=Date.now();
-document.getElementById('photonStartBtn').disabled=true;document.getElementById('photonStopBtn').disabled=false;
-document.getElementById('photonLog').innerHTML='';
-['photonSent','photonSuccess','photonFailed'].forEach(x=>document.getElementById(x).textContent='0');
-document.getElementById('photonRate').textContent='0/s';
-showLoading('photonLoading',true);
-addPhotonLog('Starting '+region+' '+count+' connections with '+threads+' threads');
-checkPhotonStatus();
-photonPollInterval=setInterval(pollPhotonProgress,200);
-try{
-var r=await apiRequest(_p.photonspam,{appId:appId,count:count,threads:threads,region:region});
-photonSpamming=false;if(photonPollInterval){clearInterval(photonPollInterval);photonPollInterval=null}
-showLoading('photonLoading',false);
-document.getElementById('photonStartBtn').disabled=false;document.getElementById('photonStopBtn').disabled=true;
-if(r.success){
-document.getElementById('photonSent').textContent=r.sent||count;
-document.getElementById('photonSuccess').textContent=r.successful||0;
-document.getElementById('photonFailed').textContent=r.failed||0;
-var el=(Date.now()-photonStartTime)/1000;
-document.getElementById('photonRate').textContent=Math.round((r.sent||count)/el)+'/s';
-addPhotonLog('Completed '+(r.successful||0)+' successful, '+(r.failed||0)+' failed');
-showResponse('photon',true,{fields:{'Sent':r.sent,'Successful':r.successful,'Failed':r.failed,'Duration':el.toFixed(2)+'s'},raw:r});
-checkPhotonStatus();
-}else{addPhotonLog('Error '+(r.error||'Unknown'));showResponse('photon',false,{fields:{'Error':r.error},raw:r})}
-}catch(e){
-photonSpamming=false;if(photonPollInterval){clearInterval(photonPollInterval);photonPollInterval=null}
-showLoading('photonLoading',false);
-document.getElementById('photonStartBtn').disabled=false;document.getElementById('photonStopBtn').disabled=true;
-addPhotonLog('Exception '+e.message);
-showResponse('photon',false,{fields:{'Error':e.message},raw:{error:e.message}});
-}
-}
-
-async function stopPhotonSpam(){
-photonSpamming=false;document.getElementById('photonStopBtn').disabled=true;
-addPhotonLog('Stop requested');
-try{await fetch(_p.photonstop,{method:'POST'})}catch(e){}
-if(photonPollInterval){clearInterval(photonPollInterval);photonPollInterval=null}
-}
-
-async function checkPhotonStatus(){
-var appId=document.getElementById('photonAppId').value.trim();
-var region=document.getElementById('photonRegion').value;
-if(!appId){alert('Please enter App ID');return}
-addPhotonLog('Checking status for '+region);
-try{
-var r=await apiRequest(_p.photonstatus,{appId:appId,region:region});
-if(r.success){
-document.getElementById('photonServerStatus').textContent=r.serverStatus||'Unknown';
-document.getElementById('photonCCU').textContent=r.ccu||'-';
-addPhotonLog('NS '+(r.nameServer||'-')+' Master '+(r.masterServer||'-'));
-if(r.tests)r.tests.forEach(t=>addPhotonLog(t.server+':'+t.port+' ('+t.protocol+') '+t.status));
-addPhotonLog('Result '+r.serverStatus+' Activity '+(r.ccu||'N/A'));
-}else{
-document.getElementById('photonServerStatus').textContent='Error';
-document.getElementById('photonCCU').textContent='-';
-addPhotonLog('Status check failed '+(r.error||'Unknown'));
-}
-}catch(e){document.getElementById('photonServerStatus').textContent='Error';addPhotonLog('Status check exception '+e.message)}
-}
-</script>
 </body>
 </html>
